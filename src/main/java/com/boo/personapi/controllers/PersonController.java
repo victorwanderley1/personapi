@@ -25,7 +25,7 @@ public class PersonController {
         return MessageResponseDTO.builder()
                 .message(
                         "Person "+saved.getFirstName()+" "+saved.getLastName()
-                                +" has been created whit id: "+saved.getId())
+                                +" has been created with id: "+saved.getId())
                 .build();
     }
 }
