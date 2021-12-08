@@ -2,30 +2,24 @@ package com.boo.personapi.controllers;
 
 import com.boo.personapi.dto.MessageResponseDTO;
 import com.boo.personapi.entity.Person;
-import com.boo.personapi.repository.PersonRepository;
+import com.boo.personapi.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/person")
 public class PersonController {
-    private PersonRepository repository;
+    private final PersonService service;
 
     @Autowired
-    public PersonController(PersonRepository repository) {
-        this.repository = repository;
+    public PersonController(PersonService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public MessageResponseDTO createPerson(@RequestBody final Person person){
-        Person saved = repository.save(person);
-        return MessageResponseDTO.builder()
-                .message(
-                        "Person "+saved.getFirstName()+" "+saved.getLastName()
-                                +" has been created with id: "+saved.getId())
-                .build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponseDTO createPerson(@RequestBody final Person person) {
+        return this.service.createPerson(person);
     }
 }
