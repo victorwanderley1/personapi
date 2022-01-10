@@ -23,11 +23,9 @@ public class PersonService {
 
     public MessageResponseDTO createPerson(final PersonDTO personDTO) {
         Person saved = repository.save(personMapper.personDTOtoPerson(personDTO));
-        return MessageResponseDTO.builder()
-                .message(
+        return this.createMessageResponse(
                         "Person " + saved.getFirstName() + " " + saved.getLastName()
-                                + " has been created with id: " + saved.getId())
-                .build();
+                                + " has been created with id: " + saved.getId());
     }
 
     public List<PersonDTO> listAll() {
@@ -38,18 +36,28 @@ public class PersonService {
     }
 
     public PersonDTO findById(final Long id) throws PersonNotFoundException {
-        return personMapper.toDTO(this.verifyIfExists(id));
+        return personMapper.toDTO(this.ifNotExistsThrowException(id));
     }
 
     public MessageResponseDTO deletePerson(final Long id) throws PersonNotFoundException {
-        this.repository.delete(this.verifyIfExists(id));
-        return MessageResponseDTO.builder()
-                .message("The Person with id: (" + id + ") has been exclude")
-                .build();
+        this.repository.delete(this.ifNotExistsThrowException(id));
+        return this.createMessageResponse("The Person with id: (" + id + ") has been exclude");
     }
 
-    private Person verifyIfExists(final Long id) throws PersonNotFoundException {
+    private Person ifNotExistsThrowException(final Long id) throws PersonNotFoundException {
         return this.repository
                 .findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+    }
+
+    public MessageResponseDTO updateById(final Long id, final PersonDTO personDTO) throws PersonNotFoundException {
+        this.ifNotExistsThrowException(id);
+        Person saved = this.repository.save(personMapper.personDTOtoPerson(personDTO));
+        return createMessageResponse(
+                        "Person " + saved.getFirstName() + " " + saved.getLastName()
+                                + " has been updated with id: " + saved.getId());
+    }
+
+    private MessageResponseDTO createMessageResponse(final String message){
+        return MessageResponseDTO.builder().message(message).build();
     }
 }
