@@ -39,7 +39,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public MessageResponseDTO deletePerson(@PathVariable final Long id) throws PersonNotFoundException {
         return this.service.deletePerson(id);
     }
