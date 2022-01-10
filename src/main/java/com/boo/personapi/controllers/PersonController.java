@@ -46,7 +46,7 @@ public class PersonController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO updateById(@PathVariable final Long id, @RequestBody final PersonDTO personDTO) throws PersonNotFoundException {
+    public MessageResponseDTO updateById(@PathVariable final Long id, @RequestBody @Valid final PersonDTO personDTO) throws PersonNotFoundException {
         return this.service.updateById(id, personDTO);
     }
 }
