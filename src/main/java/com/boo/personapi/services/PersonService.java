@@ -44,17 +44,17 @@ public class PersonService {
         return this.createMessageResponse("The Person with id: (" + id + ") has been exclude");
     }
 
-    private Person ifNotExistsThrowException(final Long id) throws PersonNotFoundException {
-        return this.repository
-                .findById(id).orElseThrow(() -> new PersonNotFoundException(id));
-    }
-
     public MessageResponseDTO updateById(final Long id, final PersonDTO personDTO) throws PersonNotFoundException {
         this.ifNotExistsThrowException(id);
         Person saved = this.repository.save(personMapper.personDTOtoPerson(personDTO));
         return createMessageResponse(
-                        "Person " + saved.getFirstName() + " " + saved.getLastName()
-                                + " has been updated with id: " + saved.getId());
+                "Person " + saved.getFirstName() + " " + saved.getLastName()
+                        + " has been updated with id: " + saved.getId());
+    }
+
+    private Person ifNotExistsThrowException(final Long id) throws PersonNotFoundException {
+        return this.repository
+                .findById(id).orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     private MessageResponseDTO createMessageResponse(final String message){
