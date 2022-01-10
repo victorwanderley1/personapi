@@ -44,7 +44,7 @@ public class PersonService {
     public MessageResponseDTO deletePerson(final Long id) throws PersonNotFoundException {
         this.repository.delete(this.verifyIfExists(id));
         return MessageResponseDTO.builder()
-                .message("The Person with id: " + id + "has been exclude")
+                .message("The Person with id: (" + id + ") has been exclude")
                 .build();
     }
 
