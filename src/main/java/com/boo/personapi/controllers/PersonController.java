@@ -2,7 +2,6 @@ package com.boo.personapi.controllers;
 
 import com.boo.personapi.dto.MessageResponseDTO;
 import com.boo.personapi.dto.request.PersonDTO;
-import com.boo.personapi.entity.Person;
 import com.boo.personapi.exception.PersonNotFoundException;
 import com.boo.personapi.services.PersonService;
 import lombok.AllArgsConstructor;
