@@ -2,7 +2,6 @@ package com.boo.personapi.utils;
 
 import com.boo.personapi.dto.request.PersonDTO;
 import com.boo.personapi.entity.Person;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.util.Collections;
