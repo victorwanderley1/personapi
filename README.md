@@ -33,3 +33,14 @@ Projeto disponivel para uso no seguinte endereço:
 ```
 https://boo-personapi.herokuapp.com/api/v1/person
 ```
+
+Documentação de endpoints e modelos para requisiçoes:
+Heroku:
+```
+https://boo-personapi.herokuapp.com/swagger-ui.html
+```
+
+Local:
+```
+http://localhost:8080/swagger-ui.html
+```
